@@ -173,7 +173,7 @@
   function find() {
     var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-    var URL, log, HTMLString, $body, body, title, published, cover, digQ, imgQ, _ref, _ref2, address, images;
+    var URL, log, HTMLString, $body, body, title, published, cover, digQ, imgQ, _ref, _ref2, address, images, category;
 
     return _babelRuntimeRegenerator['default'].async(function find$(context$1$0) {
       while (1) switch (context$1$0.prev = context$1$0.next) {
@@ -219,6 +219,10 @@
           published = new Date(published).toISOString();
           published = (0, _isISOString['default'])(published) ? published : null;
 
+          category = '';
+
+          category = $body.find('article .meta-category a').text();
+
           cover = '';
 
           cover = (0, _$['default'])('meta[property="og:image"]');
@@ -232,8 +236,8 @@
         case 27:
           _ref = context$1$0.sent;
           _ref2 = (0, _babelRuntimeHelpersSlicedToArray['default'])(_ref, 2);
-          address = _ref2[0];
-          images = _ref2[1];
+          address = _ref2[0] || [];
+          images = _ref2[1] || [];
 
           log('[ok] You got title: ' + title + ', images.len: ' + images.length + ', address.len: ' + address.length + '...');
 
@@ -246,7 +250,8 @@
             }),
             published: published,
             title: title,
-            url: URL
+            url: URL,
+            category : category
           });
 
         case 33:
