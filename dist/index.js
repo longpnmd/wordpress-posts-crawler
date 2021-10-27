@@ -363,7 +363,8 @@
       articleList.push({
         title: $element.find('h1 a, h2 a').text(),
         url: $element.find('h1 a, h2 a').attr('href'),
-        published: $element.find('time').attr('datetime')
+        published: $element.find('time').attr('datetime'),
+        category: $element.find('.meta-category').text()
       });
     });
 
