@@ -224,7 +224,7 @@
           category = $body.find('article .meta-category a').text();
 
           description = '';
-          description = (0, _$['default'])('meta[property="og:description"]')
+          description = $body.find('meta[property="og:description"]')
           description = description.length ? description.attr('content') : '';
 
           cover = '';
