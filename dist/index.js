@@ -173,7 +173,7 @@
   function find() {
     var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-    var URL, log, HTMLString, $body, body, title, published, cover, digQ, imgQ, _ref, _ref2, address, images, category;
+    var URL, log, HTMLString, $body, body, title, published, cover, digQ, imgQ, _ref, _ref2, address, images, category, description;
 
     return _babelRuntimeRegenerator['default'].async(function find$(context$1$0) {
       while (1) switch (context$1$0.prev = context$1$0.next) {
@@ -223,6 +223,10 @@
 
           category = $body.find('article .meta-category a').text();
 
+          description = '';
+          description = (0, _$['default'])('meta[property="og:description"]')
+          description = description.length ? description.attr('content') : '';
+
           cover = '';
 
           cover = (0, _$['default'])('meta[property="og:image"]');
@@ -251,7 +255,8 @@
             published: published,
             title: title,
             url: URL,
-            category : category
+            category : category,
+            description : description
           });
 
         case 33:
