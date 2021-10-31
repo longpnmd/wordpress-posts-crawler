@@ -173,7 +173,7 @@
   function find() {
     var opts = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-    var URL, log, HTMLString, $body, body, title, published, cover, digQ, imgQ, _ref, _ref2, address, images, category, description;
+    var URL, log, HTMLString, $body, body, title, published, cover, digQ, imgQ, _ref, _ref2, address, images, categories, description;
 
     return _babelRuntimeRegenerator['default'].async(function find$(context$1$0) {
       while (1) switch (context$1$0.prev = context$1$0.next) {
@@ -219,9 +219,10 @@
           published = new Date(published).toISOString();
           published = (0, _isISOString['default'])(published) ? published : null;
 
-          category = '';
+          categories = '';
 
-          category = $body.find('article .meta-category a').text();
+          categories = $body.find('article .meta-category a');
+          // console.log(categories)
 
           description = '';
           description = $body.find('meta[property="og:description"]')
@@ -255,7 +256,9 @@
             published: published,
             title: title,
             url: URL,
-            category : category,
+            categories : categories.map(function (index) {
+              return categories[index].children.map(i=>i.data).join('')
+            }),
             description : description
           });
 
