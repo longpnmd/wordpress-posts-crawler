@@ -222,7 +222,7 @@
           categories = '';
 
           categories = $body.find('article .meta-category a,article .post-categories a');
-          console.log(categories)
+          // console.log(categories)
 
           description = '';
           description = $body.find('meta[property="og:description"]')
@@ -231,6 +231,9 @@
           cover = '';
 
           cover = (0, _$['default'])('meta[property="og:image"]');
+          if(cover.length == 0){
+            cover = $body.find('meta[property="og:image"]')
+          }
           cover = cover.length ? cover.attr('content') : $body.find('article img').eq(0).attr('src');
 
           digQ = _addressDigger['default'].dig(body);
@@ -250,9 +253,9 @@
             address: address,
             body: body,
             cover: cover,
-            images: images.map(function (img) {
+            images: (images.map(function (img) {
               return img.url;
-            }),
+            })).filter(img=>img !== undefined),
             published: published,
             title: title,
             url: URL,
