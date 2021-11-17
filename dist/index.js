@@ -221,8 +221,8 @@
 
           categories = '';
 
-          categories = $body.find('article .meta-category a');
-          // console.log(categories)
+          categories = $body.find('article .meta-category a,article .post-categories a');
+          console.log(categories)
 
           description = '';
           description = $body.find('meta[property="og:description"]')
@@ -258,7 +258,7 @@
             url: URL,
             categories : categories.map(function (index) {
               return categories[index].children.map(i=>i.data).join('')
-            }),
+            }).toArray(),
             description : description
           });
 
@@ -368,17 +368,21 @@
 
     _2['default'].each($articles, function (element) {
       var $element = (0, _$['default'])(element);
+      const categories = $element.find('.meta-category,.post-categories a')
+     
       articleList.push({
-        title: $element.find('h1 a, h2 a').text(),
-        url: $element.find('h1 a, h2 a').attr('href'),
+        title: $element.find('h1 a, h2 a, h3 a').text(),
+        url: $element.find('h1 a, h2 a, h3 a').attr('href'),
         published: $element.find('time').attr('datetime'),
-        category: $element.find('.meta-category').text()
+        categories:  categories.map(function (index) {
+          return categories[index].children.map(i=>i.data).join('')
+        }).toArray(),
       });
     });
 
     return articleList;
   }
-
+  
   function rejection(message, log) {
     if (message === undefined) message = '';
 
